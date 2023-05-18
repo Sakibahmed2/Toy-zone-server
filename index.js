@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
@@ -31,18 +31,41 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    client.connect();
 
     const toysCollection = client.db('toyCollection').collection('toys')
 
-    app.get('/', (req, res) =>{
-        res.send('Toy zone is running')
+    app.get('/', (req, res) => {
+      res.send('Toy zone is running')
     })
 
-    app.get('/toys', async(req, res) =>{
-        const result = await toysCollection.find().toArray();
-        res.send(result)
+    app.get('/toys', async (req, res) => {
+      const result = await toysCollection.find().toArray();
+      res.send(result)
     })
+
+    // app.get('/toys/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) }
+    //   const option = {
+    //     projection: { _id: 1, toys: 1 },
+    //   }
+    //   const result = await toysCollection.findOne(query, option)
+    //   res.send(result)
+    // })
+
+
+
+    app.get('/toys/:categoris', async (req, res) => {
+      console.log(req.params.categoris);
+      if (req.params.categoris == "spider man" || req.params.categoris == "Iron Man" || req.params.categoris == "hulk") {
+        const result = await toysCollection.find({ category: req.params.categoris }).toArray()
+        return res.send(result)
+      }
+    })
+
+
+
 
 
 
@@ -62,5 +85,5 @@ run().catch(console.dir);
 
 
 app.listen(port, () => {
-    console.log(`Assignment server is running on : ${port}`);
+  console.log(`Assignment server is running on : ${port}`);
 })
