@@ -44,15 +44,15 @@ async function run() {
       res.send(result)
     })
 
-    // app.get('/toys/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) }
-    //   const option = {
-    //     projection: { _id: 1, toys: 1 },
-    //   }
-    //   const result = await toysCollection.findOne(query, option)
-    //   res.send(result)
-    // })
+    app.get('/toys/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const option = {
+        projection: { _id: 1, toys: 1, image_link: 1, toy_name: 1, quantity: 1, seller_name: 1, seller_email: 1, category: 1, price: 1, rating: 1, description: 1 },
+      }
+      const result = await toysCollection.findOne(query, option)
+      res.send(result)
+    })
 
 
 
@@ -65,12 +65,10 @@ async function run() {
 
 
 
-    app.post('/toys', async(req, res) =>{
+    app.post('/toys', async (req, res) => {
       const newToy = req.body;
       const result = await toysCollection.insertOne(newToy)
-      
-      console.log(req.body);
-
+      res.send(result)
     })
 
 
