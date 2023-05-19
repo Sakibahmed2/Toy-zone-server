@@ -31,7 +31,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    client.connect();
+    // client.connect();
 
     const toysCollection = client.db('toyCollection').collection('toys')
 
@@ -57,7 +57,6 @@ async function run() {
 
 
     app.get('/toys/:categoris', async (req, res) => {
-      console.log(req.params.categoris);
       if (req.params.categoris == "spider man" || req.params.categoris == "Iron Man" || req.params.categoris == "hulk") {
         const result = await toysCollection.find({ category: req.params.categoris }).toArray()
         return res.send(result)
@@ -65,6 +64,14 @@ async function run() {
     })
 
 
+
+    app.post('/toys', async(req, res) =>{
+      const newToy = req.body;
+      const result = await toysCollection.insertOne(newToy)
+      
+      console.log(req.body);
+
+    })
 
 
 
@@ -76,7 +83,7 @@ async function run() {
     // Ensures that the client will close when you finish/error
     // await client.close();
   }
-}
+};
 run().catch(console.dir);
 
 

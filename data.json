@@ -4,6 +4,7 @@
         "name": "Spider-Man",
         "toy_name": "Marvel Legends Spider-Man",
         "brand": "Marvel",
+        "quantity": 500,
         "description": "Swing into action with this highly detailed Spider-Man action figure. With his iconic red and blue suit, web-slinging abilities, and incredible agility,",
         "price": "$24.99",
         "rating": 4.7,
@@ -12,6 +13,7 @@
     {
         "category": "spider man",
         "name": "Spider-Man",
+        "quantity": 230,
         "toy_name": "Marvel Legends Spider-Man",
         "brand": "Marvel",
         "description": "Bring the power of Iron Man to your collection with this highly detailed action figure. Featuring the iconic red and gold armor design, this figure is perfect for fans of the Marvel Cinematic Universe and comic book enthusiasts.",
@@ -22,6 +24,7 @@
     {
         "category": "Iron Man",
         "name": "Iron Man",
+        "quantity": 1300,
         "toy_name": "Marvel Legends Iron Man",
         "brand": "Marvel",
         "description": "The figure stands at 6 inches tall and is fully articulated for dynamic poses and action-packed play. Collect other figures from the Marvel Legends series to assemble the ultimate superhero team!",
@@ -32,6 +35,7 @@
     {
         "category": "Iron Man",
         "name": "Iron Man",
+        "quantity": 1700,
         "toy_name": "Marvel Legends Iron Man",
         "brand": "Marvel",
         "description": "Bring the power of Iron Man to your collection with this highly detailed action figure. Featuring the iconic red and gold armor design, this figure is perfect for fans of the Marvel Cinematic Universe and comic book enthusiasts.",
@@ -41,6 +45,7 @@
     },
     {
         "category": "hulk",
+        "quantity": 760,
         "name": "Hulk",
         "toy_name": "Marvel Avengers Hulk Gamma Grip Fists",
         "brand": "Marvel",
@@ -51,6 +56,7 @@
     },
     {
         "category": "hulk",
+        "quantity": 1120,
         "name": "Hulk",
         "toy_name": "Marvel Avengers Hulk Gamma Grip Fists",
         "brand": "Marvel",
