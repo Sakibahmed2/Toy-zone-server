@@ -71,6 +71,17 @@ async function run() {
     })
 
 
+    app.get('/searchToyName/:name', async (req, res) => {
+      const toyName = req.params.name;
+      const result = await toysCollection.find({
+
+        toy_name: { $regex: toyName, $options: 'i' }
+
+      }).toArray();
+      res.send(result)
+    })
+
+
     app.post('/toys', async (req, res) => {
       const newToy = req.body;
       const result = await toysCollection.insertOne(newToy)
@@ -85,23 +96,6 @@ async function run() {
       res.send(result)
     })
 
-
-    // app.put('toys/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const updatedToy = req.body;
-    //   console.log(updatedToy, id);
-    //   // const option = { upsert: true }
-    //   // const filter = { _id: new ObjectId(id) }
-    //   // const updateDoc = {
-    //   //   $set: {
-    //   //     quantity: updatedToy.quantity,
-    //   //     price: updatedToy.price,
-    //   //     description: updatedToy.description
-    //   //   }
-    //   // }
-    //   // const result = await toysCollection.updateOne(filter, updateDoc, option)
-    //   // res.send(result)
-    // })
 
 
     app.put('/updateToys/:id', async (req, res) => {
