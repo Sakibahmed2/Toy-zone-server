@@ -39,7 +39,8 @@ async function run() {
     })
 
     app.get('/toys', async (req, res) => {
-      const result = await toysCollection.find().toArray();
+      const limit = parseInt(req.query.limit)
+      const result = await toysCollection.find().limit(limit).toArray();
       res.send(result)
     })
 
@@ -66,7 +67,7 @@ async function run() {
     app.get('/mytoys/:email', async (req, res) => {
       const myToy = await toysCollection.find({
         seller_email: req.params.email,
-      }).toArray()
+      }).sort({price: 1}).toArray()
       res.send(myToy)
     })
 
