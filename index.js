@@ -12,7 +12,6 @@ app.use(cors())
 app.use(express.json())
 
 
-// toys  toyCollection
 
 
 
@@ -31,7 +30,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    // client.connect();
+    client.connect();
 
     const toysCollection = client.db('toyCollection').collection('toys')
 
@@ -56,7 +55,7 @@ async function run() {
 
 
 
-    app.get('/toys/:categoris', async (req, res) => {
+    app.get('/category/:categoris', async (req, res) => {
       if (req.params.categoris == "spider man" || req.params.categoris == "Iron Man" || req.params.categoris == "hulk") {
         const result = await toysCollection.find({ category: req.params.categoris }).toArray()
         return res.send(result)
@@ -64,7 +63,7 @@ async function run() {
     })
 
 
-    app.get('/mytoys/:email', async(req, res) =>{
+    app.get('/mytoys/:email', async (req, res) => {
       const myToy = await toysCollection.find({
         seller_email: req.params.email,
       }).toArray()
@@ -79,16 +78,46 @@ async function run() {
     })
 
 
-    app.delete('/deleteToy/:id', async(req, res) =>{
+    app.delete('/deleteToy/:id', async (req, res) => {
       const id = req.params.id;
-      const query = {_id: new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
       const result = await toysCollection.deleteOne(query)
       res.send(result)
     })
 
 
+    // app.put('toys/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const updatedToy = req.body;
+    //   console.log(updatedToy, id);
+    //   // const option = { upsert: true }
+    //   // const filter = { _id: new ObjectId(id) }
+    //   // const updateDoc = {
+    //   //   $set: {
+    //   //     quantity: updatedToy.quantity,
+    //   //     price: updatedToy.price,
+    //   //     description: updatedToy.description
+    //   //   }
+    //   // }
+    //   // const result = await toysCollection.updateOne(filter, updateDoc, option)
+    //   // res.send(result)
+    // })
 
 
+    app.put('/updateToys/:id', async (req, res) => {
+      const id = req.params.id;
+      const updatedToy = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          quantity: updatedToy.quantity,
+          price: updatedToy.price,
+          description: updatedToy.description
+        },
+      };
+      const result = await toysCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    })
 
 
     // Send a ping to confirm a successful connection
